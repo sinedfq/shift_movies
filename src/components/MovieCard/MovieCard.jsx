@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './MovieCard.css';
 
 const MovieCard = ({
-  id, // Получаем id напрямую из пропсов
+  id, 
   title,
   originalTitle,
   description,
@@ -18,7 +18,7 @@ const MovieCard = ({
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/movie/${id}`); // Используем id из пропсов
+    navigate(`/movie/${id}`); 
   };
 
   const fullImageUrl = imageUrl

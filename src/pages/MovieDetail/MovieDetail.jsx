@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { fetchMovieById, fetchMovieTime } from '../api/api';
+import { useParams, useNavigate } from 'react-router-dom';
+import { fetchMovieById, fetchMovieTime } from '../../api/api';
 import './MovieDetail.css';
 
 const MovieDetail = () => {
@@ -11,6 +11,8 @@ const MovieDetail = () => {
   const [loadingSchedules, setLoadingSchedules] = useState(true);
   const [imageError, setImageError] = useState(false);
   const [expandedDate, setExpandedDate] = useState(null);
+  const [expandedSeance, setExpandedSeance] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadMovie = async () => {
@@ -43,6 +45,19 @@ const MovieDetail = () => {
     loadSchedules();
   }, [id]);
 
+  const handleSeanceSelect = (date, seance) => {
+    navigate(`/movie/${id}/places`, {
+      state: {
+        movie,
+        schedule: {
+          date,
+          time: seance.time,
+          hall: seance.hall
+        }
+      }
+    });
+  };
+
   const getImageUrl = () => {
     if (!movie?.img) return 'https://via.placeholder.com/300x450?text=No+Image';
     return movie.img.startsWith('http')
@@ -58,28 +73,6 @@ const MovieDetail = () => {
 
   const toggleDate = (date) => {
     setExpandedDate(expandedDate === date ? null : date);
-  };
-
-  const renderPlacesMatrix = (places) => {
-    if (!places || !places.length) return <p>Нет данных о местах</p>;
-
-    return (
-      <div className="places-matrix">
-        {places.map((row, rowIndex) => (
-          <div key={rowIndex} className="places-row">
-            {row.map((seat, seatIndex) => (
-              <div
-                key={seatIndex}
-                className={`place ${seat.type?.toLowerCase() || 'unknown'}`}
-                onClick={() => console.log(`Выбрано место ${rowIndex}-${seatIndex} за ${seat.price} ₽`)}
-              >
-                {seat.price} ₽
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
-    );
   };
 
   if (loading) {
@@ -138,43 +131,50 @@ const MovieDetail = () => {
         </div>
 
         <div className="schedules-section">
-          <h3>Выберите дату и место</h3>
-
+          <h3>Выберите дату и время</h3>
           {loadingSchedules ? (
             <p>Загрузка расписания...</p>
           ) : schedules.length > 0 ? (
-            <div className="dates-list">
-              {schedules.map((schedule, index) => (
-                <div key={index} className="date-item">
-                  <div
-                    className="date-header"
-                    onClick={() => toggleDate(schedule.date)}
-                  >
-                    <span>{(schedule.date && schedule.date.split('.').slice(0, 2).join('.')) || 'Дата не указана'}</span>
-                    <span className="toggle-icon">
-                      {expandedDate === schedule.date ? '▲' : '▼'}
-                    </span>
-                  </div>
-
-                  {expandedDate === schedule.date && (
-                    <div className="date-content">
-                      {schedule.seances?.length > 0 ? (
-                        schedule.seances.map((seance, seanceIndex) => (
-                          <div key={seanceIndex} className="seance">
-                            <div className="seance-info">
-                              <span className="seance-time">{seance.time || '--:--'}</span>
-                              <span className="seance-hall">Зал: {seance.hall?.name || 'не указан'}</span>
-                            </div>
-
-                            {seance.hall?.places && renderPlacesMatrix(seance.hall.places)}
-                          </div>
-                        ))
-                      ) : (
-                        <p>Нет сеансов на эту дату</p>
-                      )}
+            <div className="dates-container">
+              <div className="dates-list-horizontal">
+                {schedules.map((schedule, index) => (
+                  <div key={index} className="date-item-horizontal">
+                    <div
+                      className="date-header-horizontal"
+                      onClick={() => toggleDate(schedule.date)}
+                    >
+                      <span>{schedule.date.split('.').slice(0, 2).join('.')}</span>
+                      <span className="toggle-icon">
+                        {expandedDate === schedule.date ? '▲' : '▼'}
+                      </span>
                     </div>
-                  )}
-                </div>
+                  </div>
+                ))}
+              </div>
+
+              {schedules.map((schedule, index) => (
+                expandedDate === schedule.date && (
+                  <div key={index} className="date-content-independent">
+                    {schedule.seances?.length > 0 ? (
+                      <div className="times-container">
+                        <div className="times-list-horizontal">
+                          {schedule.seances.map((seance, seanceIndex) => (
+                            <div key={seanceIndex} className="time-item-container">
+                              <div
+                                className="time-header-horizontal"
+                                onClick={() => handleSeanceSelect(schedule.date, seance)}
+                              >
+                                <span className="seance-time-fixed">{seance.time}</span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ) : (
+                      <p>Нет сеансов на эту дату</p>
+                    )}
+                  </div>
+                )
               ))}
             </div>
           ) : (

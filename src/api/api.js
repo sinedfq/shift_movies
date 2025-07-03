@@ -33,8 +33,7 @@ export const fetchMovieById = async (id) => {
       throw new Error(data.reason || 'Failed to fetch movie');
     }
 
-    // Исправлено: возвращаем data.film (единственный фильм), а не data.films
-    return data.film || data.films[0]; // В зависимости от структуры ответа сервера
+    return data.film || data.films[0]; 
   } catch (error) {
     console.error(`Error fetching movie with id ${id}:`, error);
     throw error;

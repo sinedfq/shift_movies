@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { fetchMovies } from './api/api';
 import MoviesList from './components/MovieList/MovieList';
-import MovieDetail from './pages/MovieDetail'
+import MovieDetail from './pages/MovieDetail/MovieDetail';
+import PlacePicker from './pages/PlacePicker/PlacePicker'
 import Header from './components/Header/Header';
 import './App.css';
 
@@ -55,6 +56,7 @@ function MovieApp() {
 function Layout({ children }) {
   return (
     <div className="app">
+      <Header />
       <main className="main-content">{children}</main>
     </div>
   );
@@ -63,7 +65,6 @@ function Layout({ children }) {
 function App() {
   return (
     <Router>
-      <Header />
       <Routes>
         <Route
           path="/"
@@ -81,6 +82,14 @@ function App() {
             </Layout>
           }
         />
+        <Route
+          path="/movie/:id/places"
+          element={
+            <Layout>
+              <PlacePicker />
+            </Layout>
+          }
+        />  
       </Routes>
     </Router>
   );
