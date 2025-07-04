@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
 import { fetchMovies } from './api/api';
 import MoviesList from './components/MovieList/MovieList';
-import MovieDetail from './pages/MovieDetail/MovieDetail';
-import PlacePicker from './pages/PlacePicker/PlacePicker'
 import Header from './components/Header/Header';
+import { BookingProvider } from './context/BookingContext';
+import MovieDetail from './pages/MovieDetail/MovieDetail';
+import PlacePicker from './pages/PlacePicker/PlacePicker';
+import UserData from './pages/UserData/UserData';
+import Payment from './pages/PaymentPage/Payment';
 import './App.css';
 
 function MovieApp() {
@@ -53,11 +56,13 @@ function MovieApp() {
   return <MoviesList movies={movies} />;
 }
 
-function Layout({ children }) {
+function Layout() {
   return (
     <div className="app">
       <Header />
-      <main className="main-content">{children}</main>
+      <main className="main-content">
+        <Outlet /> 
+      </main>
     </div>
   );
 }
@@ -65,32 +70,17 @@ function Layout({ children }) {
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Layout>
-              <MovieApp />
-            </Layout>
-          }
-        />
-        <Route
-          path="/movie/:id"
-          element={
-            <Layout>
-              <MovieDetail />
-            </Layout>
-          }
-        />
-        <Route
-          path="/movie/:id/places"
-          element={
-            <Layout>
-              <PlacePicker />
-            </Layout>
-          }
-        />  
-      </Routes>
+      <BookingProvider>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<MovieApp />} /> 
+            <Route path="movie/:id" element={<MovieDetail />} />
+            <Route path="movie/:id/places" element={<PlacePicker />} />
+            <Route path="movie/:id/userData" element={<UserData />} />
+            <Route path="movie/:id/userData/payment" element={<Payment />} />
+          </Route>
+        </Routes>
+      </BookingProvider>
     </Router>
   );
 }

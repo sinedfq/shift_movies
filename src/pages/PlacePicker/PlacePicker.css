@@ -11,12 +11,6 @@
   font-weight: 500;
 }
 
-.screen {
-  background: gray;
-  text-align: center;
-  width: auto;
-}
-
 .cinema-hall {
   margin-top: 50px;
   width: 100%;
@@ -24,44 +18,32 @@
   position: relative;
 }
 
-.screen {
-  text-align: center;
-  padding: 10px 0;
-  font-weight: bold;
-  border-radius: 25px;
-  width: 40vh;
-  margin-bottom: 20px;
-  position: relative;
-  background: #cdcdcd90;
+.screen-box {
+  margin-right: auto;
+  width: 540px;
+  margin-left: 15px;
 }
 
 .text-screen {
-  margin-bottom: 10px;
-  margin-left: 21%;
+  font-size: 1rem;
   font-weight: bold;
-  border-radius: 4px;
-  width: 80%;
-  position: relative;
+  color: #aaa;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  width: 70%;
+  text-align: center;
 }
 
-.screen::before,
-.screen::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  width: 10%;
-  height: 2px;
-  background: #b4b4b43f;
-}
-
-.screen::before {
-  left: 0;
-  transform: translateX(-100%);
-}
-
-.screen::after {
-  right: 0;
-  transform: translateX(100%);
+.screen {
+  width: 70%;
+  height: 8px;
+  background: linear-gradient(to bottom, #eee, #ccc);
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.2),
+    inset 0 -2px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 50%/5px;
+  margin-bottom: 50px;
 }
 
 .places-grid {
@@ -69,18 +51,22 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  width: 400px;
+  max-width: 400px;
 }
 
 .places-row {
   display: flex;
-  gap: 8px;
+  max-width: 700px;
+  max-height: 50px;
+  gap: 5px;
 }
 
 .back-button {
   box-shadow: 0px 0px 0px 0px #ffffff;
   background-color: #ededed;
-  border-radius: 28px;
+  border-radius: 16px;
+  height: 56px;
+  width: 172px;
   border: 1px solid #dcdcdc;
   display: inline-block;
   cursor: pointer;
@@ -102,7 +88,9 @@
 .book-button {
   box-shadow: 0px 0px 0px 0px #ffffff;
   background-color: #a03bff;
-  border-radius: 28px;
+  border-radius: 16px;
+  height: 56px;
+  width: 172px;
   border: 1px solid #dcdcdc;
   display: inline-block;
   cursor: pointer;
@@ -112,17 +100,18 @@
   padding: 12px 38px;
   text-decoration: none;
   transition: all 0.2s;
+  margin-left: 20px;
 }
 
-.book-button:hover{
-    background-color: #3a6eff;
+.book-button:hover {
+  background-color: #3a6eff;
   transform: scale(1.05);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
-.date, 
+.date,
 .time,
-.scene  {
+.scene {
   font-weight: 700;
   font-size: 1.6vh;
   color: #7777776e;
@@ -131,22 +120,4 @@
 .movie-info p {
   font-weight: 400;
   font-size: 2.1vh;
-}
-
-@media (max-width: 760px) {
-  .screen {
-    width: 40vh;
-  }
-  .text-screen {
-    margin-left: 160px;
-  }
-}
-
-@media (max-width: 860px) {
-  .screen {
-    width: 40vh;
-  }
-  .text-screen {
-    margin-left: 160px;
-  }
 }
