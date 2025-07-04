@@ -45,6 +45,24 @@ const MovieDetail = () => {
     loadSchedules();
   }, [id]);
 
+  const groupSeancesByHall = (seances) => {
+    const hallsMap = new Map();
+
+    seances.forEach(seance => {
+      const hallName = seance.hall.name;
+      if (!hallsMap.has(hallName)) {
+        hallsMap.set(hallName, {
+          hallInfo: seance.hall,
+          seances: []
+        });
+      }
+      hallsMap.get(hallName).seances.push(seance);
+    });
+
+    return Array.from(hallsMap.values());
+  };
+
+
   const handleSeanceSelect = (date, seance) => {
     navigate(`/movie/${id}/places`, {
       state: {
@@ -60,9 +78,8 @@ const MovieDetail = () => {
 
   const getImageUrl = () => {
     if (!movie?.img) return 'https://via.placeholder.com/300x450?text=No+Image';
-    return movie.img.startsWith('http')
-      ? movie.img
-      : `https://shift-intensive.ru/api/${movie.img}`;
+    if (movie.img.startsWith('http')) return movie.img;
+    return `https://shift-intensive.ru/api/${movie.img}`;
   };
 
   const handleImageError = (e) => {
@@ -70,9 +87,12 @@ const MovieDetail = () => {
     e.target.src = 'https://via.placeholder.com/300x450?text=No+Image';
   };
 
-
   const toggleDate = (date) => {
-    setExpandedDate(expandedDate === date ? null : date);
+    if (expandedDate === date) {
+      setExpandedDate(null);
+    } else {
+      setExpandedDate(date);
+    }
   };
 
   if (loading) {
@@ -132,9 +152,8 @@ const MovieDetail = () => {
 
         <div className="schedules-section">
           <h3>Выберите дату и время</h3>
-          {loadingSchedules ? (
-            <p>Загрузка расписания...</p>
-          ) : schedules.length > 0 ? (
+          {loadingSchedules && <p>Загрузка расписания...</p>}
+          {!loadingSchedules && schedules.length > 0 && (
             <div className="dates-container">
               <div className="dates-list-horizontal">
                 {schedules.map((schedule, index) => (
@@ -144,42 +163,44 @@ const MovieDetail = () => {
                       onClick={() => toggleDate(schedule.date)}
                     >
                       <span>{schedule.date.split('.').slice(0, 2).join('.')}</span>
-                      <span className="toggle-icon">
-                        {expandedDate === schedule.date ? '▲' : '▼'}
-                      </span>
                     </div>
                   </div>
                 ))}
               </div>
 
-              {schedules.map((schedule, index) => (
-                expandedDate === schedule.date && (
-                  <div key={index} className="date-content-independent">
-                    {schedule.seances?.length > 0 ? (
-                      <div className="times-container">
-                        <div className="times-list-horizontal">
-                          {schedule.seances.map((seance, seanceIndex) => (
-                            <div key={seanceIndex} className="time-item-container">
-                              <div
+              {schedules.map((schedule, index) => {
+                if (expandedDate === schedule.date) {
+                  return (
+                    <div key={index} className="date-content-independent">
+                      {groupSeancesByHall(schedule.seances).map((hall, hallIndex) => (
+                        <div key={hallIndex} className="hall-section">
+                          <div className="hall-info">
+                            <h4 className="hall-name">{hall.hallInfo.name}</h4>
+                            <span className="hall-type">{hall.hallInfo.type}</span>
+                          </div>
+
+                          <div className="times-list-horizontal">
+                            {hall.seances.map((seance, seanceIndex) => (
+                              <a
+                                key={seanceIndex}
                                 className="time-header-horizontal"
                                 onClick={() => handleSeanceSelect(schedule.date, seance)}
                               >
-                                <span className="seance-time-fixed">{seance.time}</span>
-                              </div>
-                            </div>
-                          ))}
+                                {seance.time}
+                              </a>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    ) : (
-                      <p>Нет сеансов на эту дату</p>
-                    )}
-                  </div>
-                )
-              ))}
+                      ))}
+                      {!schedule.seances?.length && <p>Нет сеансов на эту дату</p>}
+                    </div>
+                  );
+                }
+                return null;
+              })}
             </div>
-          ) : (
-            <p>Нет доступных расписаний</p>
           )}
+          {!loadingSchedules && schedules.length === 0 && <p>Нет доступных расписаний</p>}
         </div>
       </div>
     </div>
