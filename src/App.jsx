@@ -6,6 +6,7 @@ import Header from './components/Header/Header';
 import { BookingProvider } from './context/BookingContext';
 import MovieDetail from './pages/MovieDetail/MovieDetail';
 import PlacePicker from './pages/PlacePicker/PlacePicker';
+import ConfirmationPage from './pages/ConfirmationPage/ConfirmationPage';
 import UserData from './pages/UserData/UserData';
 import Payment from './pages/PaymentPage/Payment';
 import './App.css';
@@ -61,7 +62,7 @@ function Layout() {
     <div className="app">
       <Header />
       <main className="main-content">
-        <Outlet /> 
+        <Outlet />
       </main>
     </div>
   );
@@ -73,11 +74,12 @@ function App() {
       <BookingProvider>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={<MovieApp />} /> 
+            <Route index element={<MovieApp />} />
             <Route path="movie/:id" element={<MovieDetail />} />
             <Route path="movie/:id/places" element={<PlacePicker />} />
             <Route path="movie/:id/userData" element={<UserData />} />
             <Route path="movie/:id/userData/payment" element={<Payment />} />
+            <Route path="movie/:id/confirmation" element={<ConfirmationPage />} />
           </Route>
         </Routes>
       </BookingProvider>

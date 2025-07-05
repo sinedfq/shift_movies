@@ -1,0 +1,166 @@
+
+.paymentContainer {
+  all: initial; 
+  display: block; 
+  max-width: 420px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  font-family: 'Segoe UI', Roboto, sans-serif; 
+  
+
+  isolation: isolate;
+  position: relative;
+  z-index: 1;
+}
+
+.paymentContainer h2 {
+  color: #1a1a1a;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.cardBox {
+  width: 100%;
+  padding: 1.5rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.cardBox:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.inputGroup {
+  margin-bottom: 1.25rem;
+  position: relative;
+}
+
+.inputGroup label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4a5568;
+}
+
+.input {
+  width: 100%;
+  max-width: 370px;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  color: #2d3748;
+  background-color: #f8fafc;
+  transition: all 0.2s ease;
+}
+
+.inputCvc {
+  width: 100%;
+  max-width: 148px;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  color: #2d3748;
+  background-color: #f8fafc;
+  transition: all 0.2s ease;
+}
+
+.inputDate {
+  width: 100%;
+  max-width: 148px;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  color: #2d3748;
+  background-color: #f8fafc;
+  transition: all 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #6366f1;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.input::placeholder {
+  color: #a0aec0;
+  opacity: 1;
+}
+
+.inputRow {
+  display: flex;
+  gap: 1rem;
+}
+
+.inputRow .inputGroup {
+  flex: 1;
+}
+
+.input:invalid:not(:placeholder-shown) {
+  border-color: #f56565;
+}
+
+.input:valid:not(:placeholder-shown) {
+  border-color: #48bb78;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+  70% { box-shadow: 0 0 0 6px rgba(99, 102, 241, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
+}
+
+.input:focus {
+  animation: pulse 1.5s infinite;
+}
+
+@media (max-width: 480px) {
+  .paymentContainer {
+    padding: 1rem;
+  }
+  
+  .cardBox {
+    padding: 1.25rem;
+  }
+  
+  .inputRow {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+}
+
+.error {
+  color: #ff6b6b;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 12px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+}
+
+.submitButton:hover {
+  background-color: #3a7bc8;
+}
+
+.submitButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}

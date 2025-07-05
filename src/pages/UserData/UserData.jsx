@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState } from "react";
 import Modal from '../../components/Modal/Modal';
-import { useBooking, useUser } from "../../context/BookingContext"; // Импортируем оба хука
+import { useBooking, useUser } from "../../context/BookingContext";
 import './UserData.css';
 
 const UserData = () => {
@@ -151,7 +151,7 @@ const UserData = () => {
             type="submit"
             className="book-button"
           >
-            Купить
+          Продолжить
           </button>
         </div>
       </form>
