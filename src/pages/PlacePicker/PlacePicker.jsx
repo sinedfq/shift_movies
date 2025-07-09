@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import './PlacePicker.css'
+import styles from './PlacePicker.module.css';
 import { useBooking } from '../../context/BookingContext';
 
 const PlacePicker = () => {
@@ -26,11 +26,14 @@ const PlacePicker = () => {
     navigate(`/movie/${id}`, { state: { movie } });
   };
 
-  const handlePlaceSelect = (rowIndex, seatIndex, price) => {
-    setSelectedPlaces(prev => {
-      const placeKey = `${rowIndex}-${seatIndex}`;
-      const isSelected = prev.includes(placeKey);
+  const handlePlaceSelect = (rowIndex, seatIndex) => {
+    const seat = places[rowIndex][seatIndex];
+    const placeKey = `${rowIndex}-${seatIndex}`;
 
+    if (seat.type === 'BLOCKED' || seat.type === 'PAYED') return;
+
+    setSelectedPlaces(prev => {
+      const isSelected = prev.includes(placeKey);
       const newSelected = isSelected
         ? prev.filter(p => p !== placeKey)
         : [...prev, placeKey];
@@ -41,7 +44,6 @@ const PlacePicker = () => {
       }, 0);
 
       setTotalPrice(newTotal);
-
       return newSelected;
     });
   };
@@ -58,7 +60,7 @@ const PlacePicker = () => {
 
   if (!movie || !schedule) {
     return (
-      <div className="error-message">
+      <div className={styles.errorMessage}>
         <h2>Данные сеанса не загружены</h2>
         <button onClick={handleBack}>Вернуться к фильму</button>
       </div>
@@ -66,51 +68,62 @@ const PlacePicker = () => {
   }
 
   return (
-    <div className="place-picker">
-      <div className="cinema-hall">
-        <div className='screen' style={{ width: screenWidth }}>
-          
+    <div className={styles.placePicker}>
+      <div className={styles.cinemaHall}>
+        
+        <div className={styles.screen} style={{ width: screenWidth }}>
+          <p className={styles.screenLabel}>Экран</p>
         </div>
-        <div className="places-grid">
+        <div className={styles.placesGrid}>
           {places.map((row, rowIndex) => (
-            <div key={rowIndex} className="places-row" ref={placesGridRef}>
-              {rowIndex + 1}
-              {row.map((seat, seatIndex) => (
-                <div
-                  key={seatIndex}
-                  className={`place ${seat.type.toLowerCase()} ${selectedPlaces.includes(`${rowIndex}-${seatIndex}`) ? 'selected' : ''
-                    }`}
-                  onClick={() => handlePlaceSelect(rowIndex, seatIndex, seat.price)}
-                >
-                  <span className="price">{seat.price} ₽</span>
-                </div>
-              ))}
+            <div
+              key={rowIndex}
+              className={styles.placesRow}
+              ref={rowIndex === 0 ? placesGridRef : null}
+            >
+              {row.map((seat, seatIndex) => {
+                const placeKey = `${rowIndex}-${seatIndex}`;
+                const isSelected = selectedPlaces.includes(placeKey);
+                const typeClass = styles[seat.type.toLowerCase()];
+                return (
+                  <div
+                    key={seatIndex}
+                    className={`${styles.place} ${typeClass} ${isSelected ? styles.selected : ''}`}
+                    onClick={() => handlePlaceSelect(rowIndex, seatIndex)}
+                    title={seat.type === 'BLOCKED' || seat.type === 'PAYED' ? 'Место занято' : `Цена: ${seat.price} ₽`}
+                  >
+                    {seat.price} ₽
+                  </div>
+                );
+              })}
             </div>
           ))}
         </div>
       </div>
 
-      <div className="movie-info">
-        <label className='date'>Дата</label>
+      <div className={styles.movieInfo}>
+        <label className={styles.date}>Дата</label>
         <p>{schedule.date}</p>
-        <label className='time'>Время</label>
+        <label className={styles.time}>Время</label>
         <p>{schedule.time}</p>
-        <label className='scene'>Зал</label>
+        <label className={styles.scene}>Зал</label>
         <p>{schedule.hall?.name}</p>
-        <label className='scene'>Цена</label>
+        <label className={styles.scene}>Сумма</label>
         <p>{totalPrice} ₽</p>
       </div>
 
-      <button onClick={handleBack} className="back-button">
-        Назад
-      </button>
-      <button
-        className="book-button"
-        onClick={handleBook}
-        disabled={selectedPlaces.length === 0}
-      >
-        Купить
-      </button>
+      <div className={styles.buttons}>
+        <button onClick={handleBack} className={styles.backButton}>
+          Назад
+        </button>
+        <button
+          className={styles.bookButton}
+          onClick={handleBook}
+          disabled={selectedPlaces.length === 0}
+        >
+          Купить
+        </button>
+      </div>
     </div>
   );
 };

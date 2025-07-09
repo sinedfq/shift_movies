@@ -3,6 +3,7 @@ import { useBooking } from "../../context/BookingContext";
 import { useUser } from "../../context/BookingContext";
 import styles from "./Payment.module.css";
 import { useNavigate, useParams } from 'react-router-dom';
+import { formatCardNumber, formatExpiry, handleCvcChange } from "../../Formatting/Formatting.jsx"
 
 const Payment = () => {
   const { id } = useParams();
@@ -16,26 +17,6 @@ const Payment = () => {
   const [cvc, setCvc] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-
-  const formatCardNumber = (value) => {
-    const v = value.replace(/[^\d\s]/g, '');
-    const digitsOnly = v.replace(/\s/g, '');
-
-    let formatted = '';
-    for (let i = 0; i < digitsOnly.length; i++) {
-      if (i > 0 && i % 4 === 0) formatted += ' ';
-      formatted += digitsOnly[i];
-      if (formatted.length >= 19) break;
-    }
-
-    return formatted;
-  };
-
-  const formatExpiry = (value) => {
-    const v = value.replace(/[^0-9]/g, '');
-    if (v.length >= 3) return `${v.substring(0, 2)}/${v.substring(2, 4)}`;
-    return v;
-  };
 
   const handleCardNumberChange = (e) => {
     const input = e.target.value;
@@ -53,10 +34,6 @@ const Payment = () => {
       return;
     }
     setExpiry(formatExpiry(input));
-  };
-
-  const handleCvcChange = (e) => {
-    setCvc(e.target.value.replace(/[^0-9]/g, ''));
   };
 
   const handleSubmit = async (e) => {
@@ -172,7 +149,7 @@ const Payment = () => {
                 type="text"
                 inputMode="numeric"
                 value={cvc}
-                onChange={handleCvcChange}
+                onChange={(e) => handleCvcChange(e, setCvc)}
                 placeholder="123"
                 maxLength={4}
                 autoComplete="cc-csc"

@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&display=swap');
+
+#root {
+  font-family: 'IBM Plex Sans', Arial, sans-serif;
+}
+
+.placePicker {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* раньше было center */
+  padding: 20px;
+}
+
+.cinemaHall {
+  margin-top: 40px;
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* матрица слева */
+}
+
+.screen {
+  height: 12px;
+  background: linear-gradient(to bottom, #eee, #bbb);
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  margin-bottom: 40px;
+}
+
+.screenLabel {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.placesGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+  /* раньше center */
+}
+
+.placesRow {
+  display: flex;
+  gap: 8px;
+}
+
+.place {
+  width: 45px;
+  height: 45px;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  text-align: center;
+  line-height: 45px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.place:hover {
+  background-color: #e0e0e0;
+  transform: scale(1.05);
+}
+
+.place.selected {
+  background-color: #a03bff !important;
+  color: white;
+  border: 1px solid #7c1ed8;
+}
+
+.selected {
+  background-color: #a03bff;
+  color: white;
+  border: 1px solid #7c1ed8;
+}
+
+
+.econom {
+  background-color: #40acff7f;
+}
+
+.comfort {
+  background-color: #b923ff5e;
+}
+
+
+.blocked,
+.payed,
+.occupied {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.movieInfo {
+  margin-top: 30px;
+  text-align: left;
+  font-size: 1.8vh;
+  font-weight: 500;
+}
+
+.date,
+.time,
+.scene {
+  font-weight: 700;
+  font-size: 1.6vh;
+  color: #7777776e;
+}
+
+.movieInfo p {
+  font-weight: 400;
+  font-size: 2.1vh;
+}
+
+.buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.backButton,
+.bookButton {
+  border-radius: 16px;
+  height: 56px;
+  width: 172px;
+  font-size: 19px;
+  padding: 12px 38px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.backButton {
+  background-color: #ededed;
+  border: 1px solid #dcdcdc;
+  color: #777;
+}
+
+.backButton:hover {
+  background-color: #dfdfdf;
+  transform: scale(1.05);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.bookButton {
+  background-color: #a03bff;
+  color: white;
+  border: 1px solid #dcdcdc;
+}
+
+.bookButton:hover {
+  background-color: #3a6eff;
+  transform: scale(1.05);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.bookButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.errorMessage {
+  text-align: left;
+}

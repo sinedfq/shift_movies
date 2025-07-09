@@ -1,6 +1,10 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useBooking } from '../../context/BookingContext';
 import { useUser } from '../../context/BookingContext';
+import PlacesInfo from '../../components/PlacesInfo/PlacesInfo';
+import UserInfo from '../../components/UserInfo/UserInfo';
+import TicketInfo from '../../components/TicketInfo/TicketInfo';
+import { MovieInfo, ScheduleInfo } from '../../components/InfoSection/InfoSection';
 import styles from './ConfirmationPage.module.css';
 
 const ConfirmationPage = () => {
@@ -49,84 +53,19 @@ const ConfirmationPage = () => {
                 <div className={styles.ticketInfo}>
                     <h3>Электронный билет</h3>
 
-                    <div className={styles.infoSection}>
-                        <div className={styles.infoRow}>
-                            <span className={styles.infoLabel}>ID бронирования:</span>
-                            <span className={styles.infoValue}>{orderId}</span>
-                        </div>
-                        <div className={styles.infoRow}>
-                            <span className={styles.infoLabel}>Номер заказа:</span>
-                            <span className={styles.infoValue}>{orderNumber}</span>
-                        </div>
-                        <div className={styles.infoRow}>
-                            <span className={styles.infoLabel}>Дата бронирования:</span>
-                            <span className={styles.infoValue}>{bookingDate}</span>
-                        </div>
-                        <div className={styles.infoRow}>
-                            <span className={styles.infoLabel}>Статус:</span>
-                            <span className={styles.infoValue}>{status}</span>
-                        </div>
-                    </div>
+                    <TicketInfo
+                        orderId={orderId}
+                        orderNumber={orderNumber}
+                        bookingDate={bookingDate}
+                        status={status}
+                    />
 
-                    <div className={styles.infoSection}>
-                        <h4>Фильм</h4>
-                        <div className={styles.infoRow}>
-                            <span className={styles.infoLabel}>Название:</span>
-                            <span className={styles.infoValue}>{movie.name}</span>
-                        </div>
-                        <div className={styles.infoRow}>
-                            <span className={styles.infoLabel}>Жанр:</span>
-                            <span className={styles.infoValue}>
-                                {Array.isArray(movie.genres)
-                                    ? movie.genres.join(', ')
-                                    : movie.genre || 'Не указано'}
-                            </span>
-                        </div>
-                    </div>
-
-                    <div className={styles.infoSection}>
-                        <h4>Сеанс</h4>
-                        <div className={styles.infoRow}>
-                            <span className={styles.infoLabel}>Дата:</span>
-                            <span className={styles.infoValue}>{schedule.date}</span>
-                        </div>
-                        <div className={styles.infoRow}>
-                            <span className={styles.infoLabel}>Время:</span>
-                            <span className={styles.infoValue}>{schedule.time}</span>
-                        </div>
-                        <div className={styles.infoRow}>
-                            <span className={styles.infoLabel}>Зал:</span>
-                            <span className={styles.infoValue}>{schedule.hall?.name}</span>
-                        </div>
-                    </div>
+                    <MovieInfo movie={movie} />
+                    <ScheduleInfo schedule={schedule} />
 
                     <div className={styles.infoSection}>
                         <h4>Места</h4>
-                        {(() => {
-                            if (tickets.length > 0) {
-                                return tickets.map((ticket, index) => (
-                                    <div key={index} className={styles.infoRow}>
-                                        <span className={styles.infoLabel}>Место {index + 1}:</span>
-                                        <span className={styles.infoValue}>
-                                            Ряд {ticket.row}, Место {ticket.column}
-                                        </span>
-                                    </div>
-                                ));
-                            }
-
-                            if (selectedPlaces?.length > 0) {
-                                return selectedPlaces.map((place, index) => (
-                                    <div key={index} className={styles.infoRow}>
-                                        <span className={styles.infoLabel}>Место {index + 1}:</span>
-                                        <span className={styles.infoValue}>
-                                            Ряд {parseInt(place.split('-')[0]) + 1}, Место {parseInt(place.split('-')[1]) + 1}
-                                        </span>
-                                    </div>
-                                ));
-                            }
-
-                            return <div className={styles.infoRow}>Места не выбраны</div>;
-                        })()}
+                        <PlacesInfo tickets={tickets} selectedPlaces={selectedPlaces} />
                     </div>
 
                     <div className={styles.infoSection}>
@@ -139,20 +78,12 @@ const ConfirmationPage = () => {
 
                 <div className={styles.userInfo}>
                     <h4>Данные покупателя</h4>
-                    <div className={styles.infoRow}>
-                        <span className={styles.infoLabel}>ФИО:</span>
-                        <span className={styles.infoValue}>
-                            {order.person?.lastname || userData?.surname} {order.person?.firstname || userData?.name} {order.person?.middlename || userData?.middlename}
-                        </span>
-                    </div>
-                    <div className={styles.infoRow}>
-                        <span className={styles.infoLabel}>Телефон:</span>
-                        <span className={styles.infoValue}>{order.person?.phone || userData?.phone}</span>
-                    </div>
-                    <div className={styles.infoRow}>
-                        <span className={styles.infoLabel}>Email:</span>
-                        <span className={styles.infoValue}>{userData?.email || 'не указан'}</span>
-                    </div>
+                    <UserInfo
+                        order={order}
+                        userData={userData}
+                        tickets={tickets}
+                        selectedPlaces={selectedPlaces}
+                    />
                 </div>
 
                 <div className={styles.actions}>
