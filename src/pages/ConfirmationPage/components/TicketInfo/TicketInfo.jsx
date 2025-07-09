@@ -1,4 +1,4 @@
-import styles from "../../pages/ConfirmationPage/ConfirmationPage.module.css";
+import styles from "../../ConfirmationPage.module.css";
 import PropTypes from 'prop-types';
 
 const TicketInfo = ({ orderId, orderNumber, bookingDate, status }) => {
@@ -26,13 +26,6 @@ TicketInfo.propTypes = {
   orderNumber: PropTypes.string,
   bookingDate: PropTypes.string,
   status: PropTypes.string
-};
-
-TicketInfo.defaultProps = {
-  orderId: 'N/A',
-  orderNumber: 'N/A',
-  bookingDate: 'N/A',
-  status: 'N/A'
 };
 
 export default TicketInfo;

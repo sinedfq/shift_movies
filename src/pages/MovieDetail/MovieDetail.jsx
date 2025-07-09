@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchMovieById, fetchMovieTime } from '../../api/api';
-import { getImageUrl, handleImageError } from '../../utils'
-import MovieSchedule from '../../components/DatePicker/DatePicker';
+import { getImageUrl, handleImageError } from "../../utils/helpers/image"
+import MovieSchedule from './components/DatePicker/DatePicker';
 import './MovieDetail.css';
 
 const MovieDetail = () => {

@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { useBooking } from "../../context/BookingContext";
-import { useUser } from "../../context/BookingContext";
+import { useBooking, useUser } from "../../context/BookingContext";
 import styles from "./Payment.module.css";
 import { useNavigate, useParams } from 'react-router-dom';
-import { formatCardNumber, formatExpiry, handleCvcChange } from "../../Formatting/Formatting.jsx"
+import { formatCardNumber, formatExpiry, handleCvcChange } from "../../utils/helpers/formatting";
 
 const Payment = () => {
   const { id } = useParams();

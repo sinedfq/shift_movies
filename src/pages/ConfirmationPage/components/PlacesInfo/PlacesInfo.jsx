@@ -1,4 +1,4 @@
-import styles from "../../pages/ConfirmationPage/ConfirmationPage.module.css";
+import styles from "../../ConfirmationPage.module.css";
 
 const PlacesInfo = ({ tickets, selectedPlaces }) => {
   if (tickets.length > 0) {

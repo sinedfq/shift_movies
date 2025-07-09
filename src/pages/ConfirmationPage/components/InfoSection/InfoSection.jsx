@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import styles from '../../pages/ConfirmationPage/ConfirmationPage.module.css';
+import styles from "../../ConfirmationPage.module.css";
+import { MovieInfo } from '../MovieInfo/MovieInfo';
 
 export const InfoSection = ({ title, items }) => {
     return (
@@ -27,30 +28,5 @@ InfoSection.propTypes = {
             ])
         })
     ).isRequired
-};
-
-// Использование компонента
-export const MovieInfo = ({ movie }) => {
-    const movieItems = [
-        { label: 'Название', value: movie.name },
-        {
-            label: 'Жанр',
-            value: Array.isArray(movie.genres)
-                ? movie.genres.join(', ')
-                : movie.genre || 'Не указано'
-        }
-    ];
-
-    return <InfoSection title="Фильм" items={movieItems} />;
-};
-
-export const ScheduleInfo = ({ schedule }) => {
-    const scheduleItems = [
-        { label: 'Дата', value: schedule.date },
-        { label: 'Время', value: schedule.time },
-        { label: 'Зал', value: schedule.hall?.name }
-    ];
-
-    return <InfoSection title="Сеанс" items={scheduleItems} />;
 };
 

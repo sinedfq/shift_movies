@@ -1,10 +1,11 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useBooking } from '../../context/BookingContext';
 import { useUser } from '../../context/BookingContext';
-import PlacesInfo from '../../components/PlacesInfo/PlacesInfo';
-import UserInfo from '../../components/UserInfo/UserInfo';
-import TicketInfo from '../../components/TicketInfo/TicketInfo';
-import { MovieInfo, ScheduleInfo } from '../../components/InfoSection/InfoSection';
+import PlacesInfo from './components/PlacesInfo/PlacesInfo';
+import UserInfo from './components/UserInfo/UserInfo';
+import TicketInfo from './components/TicketInfo/TicketInfo';
+import { MovieInfo } from './components/MovieInfo/MovieInfo';
+import { ScheduleInfo } from './components/ScheduleInfo/ScheduleInfo';
 import styles from './ConfirmationPage.module.css';
 
 const ConfirmationPage = () => {

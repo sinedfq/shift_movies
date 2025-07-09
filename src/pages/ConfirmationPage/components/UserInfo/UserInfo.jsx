@@ -1,4 +1,4 @@
-import styles from "../../pages/ConfirmationPage/ConfirmationPage.module.css";
+import styles from "../../ConfirmationPage.module.css";
 import PropTypes from 'prop-types';
 
 const UserInfo = ({ order, userData, tickets = [], selectedPlaces = [] }) => {

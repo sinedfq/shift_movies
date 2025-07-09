@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState } from "react";
-import Modal from '../../components/Modal/Modal';
+import Modal from './components/Modal/Modal';
 import { useBooking, useUser } from "../../context/BookingContext";
 import styles from './UserData.module.css';
 
