@@ -233,7 +233,7 @@
   border: 1px solid #c8e6c9;
 }
 
-.place.vip {
+.place.comfort {
   background-color: #f3e5f5;
   color: #8e24aa;
   border: 1px solid #e1bee7;
@@ -246,9 +246,9 @@
 }
 
 .place.selected {
-  background-color: #ffeb3b;
+  background-color: #62f762;
   color: #000;
-  border: 1px solid #fbc02d;
+  border: 1px solid #50f45d;
 }
 
 .dates-container {

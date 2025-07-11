@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+
+#root {
+    font-family: 'IBM Plex Sans', Arial, sans-serif;
+}
+
+.mainBox {
+    background-color: rgba(255, 255, 255, 0.551);
+    min-width: 200px;
+    min-height: 500px;
+    border-radius: 30px;
+    padding: 20px;
+}
+
+.inputGroup {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+label {
+  display: block;
+  font-weight: 400;
+  font-size: 14px;
+  color: #6a6a6a;
+}
+
+input {
+  width: 368px;
+  height: 48px;
+  padding: 12px 8px 12px 12px;
+  border: 1px solid #CED2DA;
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: inherit;
+}
+
+input:focus {
+  outline: none;
+  border-color: #b701ff;
+  box-shadow: 0 0 0 2px rgba(0,102,204,0.2);
+}
+
+.errorMessage {
+  color: red;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.modalButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.buttonGroup {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.backButton, .bookButton {
+  border-radius: 16px;
+  height: 56px;
+  width: 172px;
+  font-size: 19px;
+  padding: 12px 38px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.backButton {
+  background-color: #ededed;
+  border: 1px solid #dcdcdc;
+  color: #777;
+}
+
+.backButton:hover {
+  background-color: #dfdfdf;
+  transform: scale(1.05);
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.bookButton {
+  background-color: #a03bff;
+  color: white;
+  width: auto;
+  border: 1px solid #dcdcdc;
+}
+
+.bookButton:hover {
+  background-color: #3a6eff;
+  transform: scale(1.05);
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.bookButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.warningText {
+  font-size: 0.9rem;
+  color: #a94442;
+  margin-top: 12px;
+  font-weight: 500;
+}

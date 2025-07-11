@@ -1,8 +1,8 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState } from "react";
-import Modal from '../../components/Modal/Modal';
-import { useBooking, useUser } from "../../context/BookingContext"; // Импортируем оба хука
-import './UserData.css';
+import Modal from './components/Modal/Modal';
+import { useBooking, useUser } from "../../context/BookingContext";
+import styles from './UserData.module.css';
 
 const UserData = () => {
   const navigate = useNavigate();
@@ -84,14 +84,14 @@ const UserData = () => {
   };
 
   return (
-    <div className="main-box">
+    <div className={styles.mainBox}>
       <h2>Введите ваши данные</h2>
 
-      {error && <div className="error-message">{error}</div>}
+      {error && <div className={styles.errorMessage}>{error}</div>}
 
       <form onSubmit={handleSubmit}>
-        <div className="input-group">
-          <label htmlFor="user-surname">Фамилия*</label>
+        <div className={styles.inputGroup}>
+          <label htmlFor="surname">Фамилия*</label>
           <input
             id="surname"
             type="text"
@@ -101,7 +101,7 @@ const UserData = () => {
             required
           />
 
-          <label htmlFor="user-name">Имя*</label>
+          <label htmlFor="firstName">Имя*</label>
           <input
             id="firstName"
             type="text"
@@ -111,7 +111,7 @@ const UserData = () => {
             required
           />
 
-          <label htmlFor="user-number">Номер телефона*</label>
+          <label htmlFor="phone">Номер телефона*</label>
           <input
             id="phone"
             type="tel"
@@ -121,7 +121,7 @@ const UserData = () => {
             required
           />
 
-          <label htmlFor="user-email">Email</label>
+          <label htmlFor="email">Email</label>
           <input
             id="email"
             type="email"
@@ -139,19 +139,19 @@ const UserData = () => {
           />
         </div>
 
-        <div className="button-group">
+        <div className={styles.buttonGroup}>
           <button
             type="button"
-            className="back-button"
+            className={styles.backButton}
             onClick={handleClickBack}
           >
             Назад
           </button>
           <button
             type="submit"
-            className="book-button"
+            className={styles.bookButton}
           >
-            Купить
+            Продолжить
           </button>
         </div>
       </form>
@@ -168,12 +168,12 @@ const UserData = () => {
           {selectedPlaces && <li>Места: {selectedPlaces.join(', ')}</li>}
           {totalPrice && <li>Сумма: {totalPrice} руб.</li>}
         </ul>
-        <p className="warning-text">
+        <p className={styles.warningText}>
           *Обратите внимание, что при введении некорректных данных вы не получите билет на почту/номер телефона
         </p>
-        <div className="modal-buttons">
-          <button onClick={() => setIsModalOpen(false)}>Изменить</button>
-          <button onClick={handleConfirm} className="confirm-button">
+        <div className={styles.modalButtons}>
+          <button onClick={() => setIsModalOpen(false)} className={styles.confirmButton}>Изменить</button>
+          <button onClick={handleConfirm} className={styles.confirmButton}>
             Подтвердить
           </button>
         </div>
