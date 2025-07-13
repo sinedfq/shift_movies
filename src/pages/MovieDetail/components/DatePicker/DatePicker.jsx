@@ -12,7 +12,6 @@ const MovieSchedule = ({
     return (
         <div className="schedules-section">
             <h3>Выберите дату и время</h3>
-            {loadingSchedules && <p>Загрузка расписания...</p>}
             {!loadingSchedules && schedules.length > 0 && (
                 <div className="dates-container">
                     <div className="dates-list-horizontal">

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './MovieCard.css';
 
 const MovieCard = ({
-  id, 
+  id,
   title,
   originalTitle,
   description,
@@ -15,10 +15,19 @@ const MovieCard = ({
   ratings = {},
   country
 }) => {
+
+  const isBrokebackMountain =
+    title === "Горбатая гора" ||
+    originalTitle === "Brokeback Mountain";
+
+  // Если это "Горбатая гора", не рендерим компонент
+  if (isBrokebackMountain) {
+    return null;
+  }
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/movie/${id}`); 
+    navigate(`/movie/${id}`);
   };
 
   const fullImageUrl = imageUrl

@@ -142,6 +142,7 @@ const MovieDetail = () => {
           <p>{movie.description}</p>
         </div>
 
+        {loadingSchedules && <p>Загрузка расписания...</p>}
         <MovieSchedule
           schedules={schedules}
           loadingSchedules={loadingSchedules}

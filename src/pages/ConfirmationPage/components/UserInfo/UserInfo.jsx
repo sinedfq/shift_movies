@@ -2,7 +2,6 @@ import styles from "../../ConfirmationPage.module.css";
 import PropTypes from 'prop-types';
 
 const UserInfo = ({ order, userData, tickets = [], selectedPlaces = [] }) => {
-  // Вычисляем данные для отображения мест
   const renderPlaces = () => {
     if (tickets.length > 0) {
       return tickets.map((ticket, index) => (
@@ -32,7 +31,6 @@ const UserInfo = ({ order, userData, tickets = [], selectedPlaces = [] }) => {
     return <div className={styles.infoRow}>Места не выбраны</div>;
   };
 
-  // Получаем данные пользователя с fallback значениями
   const fullName = [
     order.person?.lastname || userData?.surname,
     order.person?.firstname || userData?.name,
@@ -59,13 +57,11 @@ const UserInfo = ({ order, userData, tickets = [], selectedPlaces = [] }) => {
         <span className={styles.infoValue}>{email}</span>
       </div>
 
-      {/* Блок с информацией о местах */}
       {renderPlaces()}
     </div>
   );
 };
 
-// Добавляем PropTypes для проверки типов
 UserInfo.propTypes = {
   order: PropTypes.shape({
     person: PropTypes.shape({
